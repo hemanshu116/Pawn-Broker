@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MaterialDesignThemes.Wpf;
 
 namespace Pawn_Broker
 {
@@ -33,6 +34,14 @@ namespace Pawn_Broker
         private void Close_Icon_click(object sender, MouseButtonEventArgs e)
         {
             System.Windows.Application.Current.Shutdown();
+        }
+
+        private void login_button_click(object sender, RoutedEventArgs e)
+        {
+            if (TxtUsername.Text == "")
+            {
+             
+            }
         }
     }
 }

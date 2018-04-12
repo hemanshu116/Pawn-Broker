@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Pawn_Broker.Views"
         mc:Ignorable="d"
-        Title="MainWindow" WindowState="Maximized" WindowStyle="ToolWindow">
+        Title="MainWindow" WindowState="Maximized">
     <DockPanel>
         <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
                                             Mode="PrimaryMid" DockPanel.Dock="Top">
@@ -25,5 +25,12 @@
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Pawn Broker</TextBlock>
             </DockPanel>
         </materialDesign:ColorZone>
+        <ListBox DockPanel.Dock="Left" Width="200" Background="#f1f1f1">
+
+        </ListBox>
+        <Button DockPanel.Dock="Bottom" Style="{StaticResource MaterialDesignFloatingActionDarkButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20"
+                    ToolTip="Add New Bill">
+            <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" ></materialDesign:PackIcon>
+        </Button>
     </DockPanel>
 </Window>

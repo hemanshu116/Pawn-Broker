@@ -10,16 +10,16 @@ namespace Pawn_Broker.db.dataManagers
 {
     class UserDataManager : AbstractDataManager
     {
-        private const string TABLE = "user";
+        private const string TABLE = "USER";
 
-        public User GetUserFromUsername(string username, string password)
+        public User AuthenticateUser(string username, string password)
         {
             Dictionary<string, object> whereClause = new Dictionary<string, object>
             {
                 { Global.USERNAME, username},
                 { Global.PASSWORD,password}
             };
-            List<User> users = Select(TABLE, whereClause);
+            List<User> users = Select<User>(TABLE, whereClause);
             return users.Count != 1 ? null : users[0];
         }
 

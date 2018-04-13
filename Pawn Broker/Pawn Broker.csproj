@@ -83,13 +83,29 @@
       <DependentUpon>CustomMessage.xaml</DependentUpon>
     </Compile>
     <Compile Include="db\dataManagers\AbstractDataManager.cs" />
+    <Compile Include="db\dataManagers\BillManager.cs" />
     <Compile Include="db\dataManagers\UserDataManager.cs" />
     <Compile Include="db\helpers\PawnBrokerHelper.cs" />
     <Compile Include="db\models\AbstractDataModel.cs" />
+    <Compile Include="db\models\Bills.cs" />
     <Compile Include="db\models\User.cs" />
+    <Compile Include="NotEmptyValidationRule.cs" />
+    <Compile Include="Properties\Annotations.cs" />
     <Compile Include="Utils\FolderUtils.cs" />
+    <Compile Include="ViewModels\ListboxViewModelHomepage.cs" />
+    <Compile Include="ViewModels\NotifyPropertyChangedExtension.cs" />
+    <Compile Include="ViewModels\SetListBoxHomepage.cs" />
+    <Compile Include="Views\AddBills.xaml.cs">
+      <DependentUpon>AddBills.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DeleteBills.xaml.cs">
+      <DependentUpon>DeleteBills.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ViewBills.xaml.cs">
+      <DependentUpon>ViewBills.xaml</DependentUpon>
     </Compile>
     <Page Include="CustomMessage.xaml">
       <SubType>Designer</SubType>
@@ -107,7 +123,19 @@
       <DependentUpon>Login.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Views\AddBills.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DeleteBills.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\MainWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ViewBills.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

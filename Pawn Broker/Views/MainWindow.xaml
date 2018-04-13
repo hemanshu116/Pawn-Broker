@@ -4,15 +4,123 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Pawn_Broker.Views"
+        xmlns:local="clr-namespace:Pawn_Broker.Views" 
+        xmlns:viewModels="clr-namespace:Pawn_Broker.ViewModels"
         mc:Ignorable="d"
         Title="MainWindow" WindowState="Maximized">
-    <DockPanel>
-        <materialDesign:ColorZone Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
-                                            Mode="PrimaryMid" DockPanel.Dock="Top">
+    <Window.Resources>
+        <Style TargetType="ListBoxItem" x:Key="ContainerStyle">
+            <Setter Property="SnapsToDevicePixels"
+                  Value="True" />
+            <Setter Property="Padding"
+                  Value="4,1" />
+            <Setter Property="Background"
+                  Value="Transparent" />
+            <Setter Property="BorderBrush"
+                  Value="Transparent" />
+            <Setter Property="BorderThickness"
+                  Value="1" />
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                        <Border x:Name="Bd"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        Padding="{TemplateBinding Padding}"
+                        SnapsToDevicePixels="True">
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                    VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                    Content="{TemplateBinding Content}"
+                                    ContentStringFormat="{TemplateBinding ContentStringFormat}"
+                                    ContentTemplate="{TemplateBinding ContentTemplate}"
+                                    SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="IsMouseOver"
+                                 Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Bd"
+                            Property="Background"
+                            Value="#6200EA" />
+                                <Setter TargetName="Bd"
+                            Property="BorderBrush"
+                            Value="Transparent" />
+
+                                <Setter Property="Foreground" Value="White" />
+                                <Setter Property="Cursor" Value="Hand"></Setter>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive"
+                                 Value="False" />
+                                    <Condition Property="IsSelected"
+                                 Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Bd"
+                            Property="Background"
+                            Value="White" />
+                                <Setter TargetName="Bd"
+                            Property="BorderBrush"
+                            Value="Black" />
+                                <Setter Property="FontWeight" Value="Bold" />
+                                <Setter Property="Foreground" Value="Black" />
+                                <Setter Property="BorderThickness" Value="5,0,0,0"></Setter>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="Green"></Setter>
+                                <Setter TargetName="Bd" Property="Margin" Value="10,0,0,0"></Setter>
+                            </MultiTrigger>
+                            <MultiTrigger>
+                                <MultiTrigger.Conditions>
+                                    <Condition Property="Selector.IsSelectionActive"
+                                 Value="True" />
+                                    <Condition Property="IsSelected"
+                                 Value="True" />
+                                </MultiTrigger.Conditions>
+                                <Setter TargetName="Bd"
+                            Property="Background"
+                            Value="White" />
+                                <Setter TargetName="Bd"
+                            Property="BorderBrush"
+                            Value="Black" />
+                                <Setter  Property="FontWeight" Value="Bold" />
+                                <Setter  Property="Foreground" Value="Black" />
+                                <Setter Property="BorderThickness" Value="5,0,0,0"></Setter>
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="Green"></Setter>
+                                <Setter TargetName="Bd" Property="Margin" Value="10,0,0,0"></Setter>
+                            </MultiTrigger>
+                            <Trigger Property="IsEnabled"
+                           Value="False">
+                                <Setter TargetName="Bd"
+                            Property="TextElement.Foreground"
+                            Value="{DynamicResource {x:Static SystemColors.GrayTextBrushKey}}" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <materialDesign:ColorZone x:Name="header" Grid.ColumnSpan="4" Padding="16" materialDesign:ShadowAssist.ShadowDepth="Depth2"
+                                  Mode="PrimaryMid" DockPanel.Dock="Top">
             <DockPanel>
                 <ToggleButton Style="{StaticResource MaterialDesignHamburgerToggleButton}" IsChecked="True"
-                                        x:Name="MenuToggleButton"/>
+                              x:Name="MenuToggleButton"/>
                 <materialDesign:PopupBox DockPanel.Dock="Right" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                     <StackPanel>
                         <Button Content="Hello World" />
@@ -25,12 +133,25 @@
                 <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Pawn Broker</TextBlock>
             </DockPanel>
         </materialDesign:ColorZone>
-        <ListBox DockPanel.Dock="Left" Width="200" Background="#f1f1f1">
 
+        <materialDesign:Card Grid.Column="0" Grid.Row="1" Grid.RowSpan="3" DockPanel.Dock="Left" Width="{Binding ActualWidth, ElementName=parentElementName}">
+        <ListBox  x:Name="DemoItemsListBox"  SelectedIndex="0"
+                 ItemsSource="{Binding ListItems}" Foreground="#797979"
+                 ItemContainerStyle="{StaticResource ContainerStyle}">
+            <ListBox.ItemTemplate>
+                    <DataTemplate DataType="viewModels:ListboxViewModelHomepage">
+                        <TextBlock  Text="{Binding Name}" TextAlignment="Left" Margin="0 0 0 0" Padding="20" />
+                    </DataTemplate>
+            </ListBox.ItemTemplate>
         </ListBox>
-        <Button DockPanel.Dock="Bottom" Style="{StaticResource MaterialDesignFloatingActionDarkButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20"
-                    ToolTip="Add New Bill">
-            <materialDesign:PackIcon Kind="Plus" Height="24" Width="24" ></materialDesign:PackIcon>
+        </materialDesign:Card>
+
+        <Frame NavigationUIVisibility="Hidden" Grid.Column="1" Grid.ColumnSpan="3" Grid.Row="1" Grid.RowSpan="3" x:Name="MainFrame"  Content="{Binding ElementName=DemoItemsListBox, Path=SelectedItem.Content}">
+        </Frame>
+
+        <Button Grid.Row="3" Grid.Column="3" Style="{StaticResource MaterialDesignFloatingActionDarkButton}" VerticalAlignment="Bottom" HorizontalAlignment="Right" Margin="0,0,20,20"
+                ToolTip="Add New Bill" Click="AddButtonClick">
+            <materialDesign:PackIcon Kind="Plus" Height="24" Width="24"></materialDesign:PackIcon>
         </Button>
-    </DockPanel>
+    </Grid>
 </Window>

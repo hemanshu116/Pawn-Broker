@@ -10,7 +10,7 @@ using Pawn_Broker.db.models;
 
 namespace Pawn_Broker.db.dataManagers
 {
-    class AbstractDataManager
+    public class AbstractDataManager
     {
         protected static readonly string SPACE = " ";
         protected static readonly string SQL_KEYWORD_AND = " AND ";
@@ -25,7 +25,7 @@ namespace Pawn_Broker.db.dataManagers
         {
             sqLiteConnection = PawnBrokerHelper.GetInstance().GetConnection();
         }
-        public List<User> Select(string table, Dictionary<string, object> whereClause)
+        public List<T> Select<T>(string table, Dictionary<string, object> whereClause) where T : AbstractDataModel, new()
         {
             StringBuilder builder = new StringBuilder();
             builder.Append("SELECT ");
@@ -54,7 +54,7 @@ namespace Pawn_Broker.db.dataManagers
                     whereValues.Add(entry.Value.ToString());
                 }
             }
-            List<User> tList = new List<User>();
+            List<T> tList = new List<T>();
             if (sqLiteConnection.State != ConnectionState.Open)
             {
                 sqLiteConnection.Open();
@@ -79,7 +79,7 @@ namespace Pawn_Broker.db.dataManagers
 
                     while (reader.Read())
                     {
-                        User t = new User();
+                        T t = new T();
                         t.SetFields(reader);
                         tList.Add(t);
                     }

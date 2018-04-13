@@ -42,7 +42,7 @@ namespace Pawn_Broker
                 return;
             }
             UserDataManager userManager = new UserDataManager();
-            User user = userManager.GetUserFromUsername(TxtUsername.Text,TxtPassword.Password);
+            User user = userManager.AuthenticateUser(TxtUsername.Text,TxtPassword.Password);
             if (user == null)
             {
                 _message.Message.Text = "Wrong username or password";
@@ -58,6 +58,11 @@ namespace Pawn_Broker
         private void AppLauncher_OnLoaded(object sender, RoutedEventArgs e)
         {
             PawnBrokerHelper.GetInstance().DatabaseCreate();
+        }
+        private void Window_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            if (e.ChangedButton == MouseButton.Left)
+                this.DragMove();
         }
     }
 }

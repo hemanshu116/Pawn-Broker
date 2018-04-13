@@ -35,6 +35,7 @@ namespace Pawn_Broker.db.helpers
             _mDbConnection.Open();
             List<string> createTableQueries = new List<string>();
             UserDataManager.CreateTableQueries(createTableQueries);
+            BillManager.CreateTableQueries(createTableQueries);
 
             using (SQLiteTransaction mytransaction = _mDbConnection.BeginTransaction())
             {

@@ -31,5 +31,14 @@ namespace Pawn_Broker.Properties {
                 return ((string)(this["AppName"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("True")]
+        public bool IsLoggedIn {
+            get {
+                return ((bool)(this["IsLoggedIn"]));
+            }
+        }
     }
 }
